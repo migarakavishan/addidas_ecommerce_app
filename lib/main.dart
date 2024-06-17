@@ -1,4 +1,4 @@
-import 'package:addidas_ecommerce_app/screens/splash_screen/splash_screen.dart';
+import 'package:addidas_ecommerce_app/screens/auth_screen/signin_page.dart';
 import 'package:flutter/material.dart';
 
 void main() {
@@ -15,10 +15,10 @@ class MyApp extends StatelessWidget {
       title: 'Flutter Demo',
       debugShowCheckedModeBanner: false,
       theme: ThemeData(
-        colorScheme: ColorScheme.fromSeed(seedColor: Colors.deepPurple),
+        colorScheme: ColorScheme.fromSeed(seedColor: Colors.orange),
         useMaterial3: true,
       ),
-      home: const SplashScreen(),
+      home: const SignInPage(),
     );
   }
 }
