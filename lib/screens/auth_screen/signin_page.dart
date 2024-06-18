@@ -1,5 +1,7 @@
 import 'package:addidas_ecommerce_app/screens/auth_screen/forgot_password.dart';
 import 'package:addidas_ecommerce_app/screens/auth_screen/signup_page.dart';
+import 'package:addidas_ecommerce_app/screens/home_screen/homepage.dart';
+import 'package:addidas_ecommerce_app/utils/custom_navigators.dart';
 import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
 
@@ -76,11 +78,7 @@ class _SignInPageState extends State<SignInPage> {
                   ),
                   InkWell(
                     onTap: () {
-                      Navigator.push(
-                          context,
-                          MaterialPageRoute(
-                            builder: (context) => const ForgotPassword(),
-                          ));
+                      CustomNavigators.goTo(context, const ForgotPassword());
                     },
                     child: CustomPoppinsText(
                       text: "Foget Password?",
@@ -98,7 +96,9 @@ class _SignInPageState extends State<SignInPage> {
                 text: "Sign In",
                 bgColor: Colors.orange.shade800,
                 size: size,
-                ontap: () {},
+                ontap: () {
+                  CustomNavigators.goTo(context, const HomePage());
+                },
               ),
               const SizedBox(
                 height: 6,
@@ -110,10 +110,7 @@ class _SignInPageState extends State<SignInPage> {
               Center(
                 child: InkWell(
                   onTap: () {
-                    Navigator.push(
-                        context,
-                        MaterialPageRoute(
-                            builder: (context) => const SignUpPage()));
+                    CustomNavigators.goTo(context, const SignUpPage());
                   },
                   child: Text.rich(
                       TextSpan(text: "Don't have an account?", children: [

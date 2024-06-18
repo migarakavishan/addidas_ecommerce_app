@@ -1,4 +1,5 @@
 import 'package:addidas_ecommerce_app/screens/auth_screen/signin_page.dart';
+import 'package:addidas_ecommerce_app/utils/custom_navigators.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 
@@ -16,8 +17,7 @@ class _SplashScreenState extends State<SplashScreen> {
     Future.delayed(
       const Duration(seconds: 3),
       () {
-        Navigator.push(context,
-            MaterialPageRoute(builder: (context) => const SignInPage()));
+        CustomNavigators.goTo(context, const SignInPage());
       },
     );
   }
