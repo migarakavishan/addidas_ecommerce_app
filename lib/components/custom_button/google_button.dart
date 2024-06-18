@@ -2,10 +2,16 @@ import 'package:addidas_ecommerce_app/components/custom_text/custom_poppins_text
 import 'package:flutter/material.dart';
 
 class GoogleButton extends StatelessWidget {
-  const GoogleButton({super.key, required this.size, required this.ontap});
+  const GoogleButton(
+      {super.key,
+      required this.size,
+      required this.ontap,
+      this.isSignIn = true});
 
   final Size size;
   final VoidCallback ontap;
+  final bool isSignIn;
+
   @override
   Widget build(BuildContext context) {
     return Center(
@@ -30,8 +36,8 @@ class GoogleButton extends StatelessWidget {
               const SizedBox(
                 width: 5,
               ),
-              const CustomPoppinsText(
-                text: "Sign in with Google",
+              CustomPoppinsText(
+                text: isSignIn ? "Sign in with Google" : "Sign Up with Google",
                 fontSize: 15,
               )
             ],

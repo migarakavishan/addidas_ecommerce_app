@@ -1,4 +1,3 @@
-import 'package:addidas_ecommerce_app/screens/auth_screen/signup_page.dart';
 import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
 
@@ -7,16 +6,17 @@ import '../../components/custom_button/google_button.dart';
 import '../../components/custom_text/custom_poppins_text.dart';
 import '../../components/custom_text_field/custom_textfield1.dart';
 
-class SignInPage extends StatefulWidget {
-  const SignInPage({super.key});
+class SignUpPage extends StatefulWidget {
+  const SignUpPage({super.key});
 
   @override
-  State<SignInPage> createState() => _SignInPageState();
+  State<SignUpPage> createState() => _SignUpPageState();
 }
 
-class _SignInPageState extends State<SignInPage> {
+class _SignUpPageState extends State<SignUpPage> {
   TextEditingController emailController = TextEditingController();
   TextEditingController passwordController = TextEditingController();
+  TextEditingController confirmPasswordController = TextEditingController();
 
   @override
   Widget build(BuildContext context) {
@@ -35,7 +35,7 @@ class _SignInPageState extends State<SignInPage> {
                 fontWeight: FontWeight.w600,
               ),
               const CustomPoppinsText(
-                text: "Please fill your detail to access account",
+                text: "Create New Account With Your Email & Password",
                 fontSize: 15,
                 fontWeight: FontWeight.w300,
               ),
@@ -59,33 +59,17 @@ class _SignInPageState extends State<SignInPage> {
               const SizedBox(
                 height: 10,
               ),
-              Row(
-                children: [
-                  Checkbox(
-                    value: false,
-                    onChanged: (val) {},
-                  ),
-                  const CustomPoppinsText(
-                    text: "Remember me",
-                    fontSize: 14,
-                    fontWeight: FontWeight.w300,
-                  ),
-                  const Spacer(
-                    flex: 1,
-                  ),
-                  CustomPoppinsText(
-                    text: "Foget Password?",
-                    fontSize: 14,
-                    color: Colors.orange.shade800,
-                    fontWeight: FontWeight.w300,
-                  ),
-                  const SizedBox(
-                    height: 15,
-                  ),
-                ],
+              CustomTextField1(
+                label: "Confirm Password",
+                icon: Icons.password,
+                isPassword: true,
+                controller: confirmPasswordController,
+              ),
+              const SizedBox(
+                height: 10,
               ),
               CustomButton1(
-                text: "Sign In",
+                text: "Create Account",
                 bgColor: Colors.orange.shade800,
                 size: size,
                 ontap: () {},
@@ -93,22 +77,23 @@ class _SignInPageState extends State<SignInPage> {
               const SizedBox(
                 height: 6,
               ),
-              GoogleButton(ontap: () {}, size: size),
+              GoogleButton(
+                ontap: () {},
+                size: size,
+                isSignIn: false,
+              ),
               const SizedBox(
                 height: 10,
               ),
               Center(
                 child: InkWell(
                   onTap: () {
-                    Navigator.push(
-                        context,
-                        MaterialPageRoute(
-                            builder: (context) => const SignUpPage()));
+                    Navigator.pop(context);
                   },
                   child: Text.rich(
-                      TextSpan(text: "Don't have an account?", children: [
+                      TextSpan(text: "Already have an account?", children: [
                     TextSpan(
-                        text: "Sign Up",
+                        text: "Sign In",
                         style:
                             GoogleFonts.poppins(color: Colors.orange.shade800))
                   ])),
