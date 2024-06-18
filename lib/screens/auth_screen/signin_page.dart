@@ -1,6 +1,10 @@
 import 'package:flutter/material.dart';
+import 'package:google_fonts/google_fonts.dart';
 
+import '../../components/custom_button/custom_button1.dart';
+import '../../components/custom_button/google_button.dart';
 import '../../components/custom_text/custom_poppins_text.dart';
+import '../../components/custom_text_field/custom_textfield1.dart';
 
 class SignInPage extends StatefulWidget {
   const SignInPage({super.key});
@@ -10,87 +14,100 @@ class SignInPage extends StatefulWidget {
 }
 
 class _SignInPageState extends State<SignInPage> {
+  TextEditingController emailController = TextEditingController();
+  TextEditingController passwordController = TextEditingController();
+
   @override
   Widget build(BuildContext context) {
-    return const Scaffold(
+    final size = MediaQuery.sizeOf(context);
+    return Scaffold(
       body: Padding(
-        padding: EdgeInsets.all(8.0),
+        padding: const EdgeInsets.all(8.0),
         child: Center(
           child: Column(
             crossAxisAlignment: CrossAxisAlignment.start,
             mainAxisAlignment: MainAxisAlignment.center,
             children: [
-              CustomPoppinsText(
+              const CustomPoppinsText(
                 text: "Adidas",
                 fontSize: 28,
                 fontWeight: FontWeight.w600,
               ),
-              CustomPoppinsText(
+              const CustomPoppinsText(
                 text: "Please fill your detail to access account",
                 fontSize: 15,
                 fontWeight: FontWeight.w300,
               ),
-              SizedBox(
+              const SizedBox(
                 height: 10,
               ),
               CustomTextField1(
                 label: "Email",
                 icon: Icons.email,
+                controller: emailController,
               ),
-              SizedBox(
+              const SizedBox(
                 height: 10,
               ),
               CustomTextField1(
                 label: "Password",
                 icon: Icons.password,
                 isPassword: true,
+                controller: passwordController,
+              ),
+              const SizedBox(
+                height: 10,
+              ),
+              Row(
+                children: [
+                  Checkbox(
+                    value: false,
+                    onChanged: (val) {},
+                  ),
+                  const CustomPoppinsText(
+                    text: "Remember me",
+                    fontSize: 14,
+                    fontWeight: FontWeight.w300,
+                  ),
+                  const Spacer(
+                    flex: 1,
+                  ),
+                  CustomPoppinsText(
+                    text: "Foget Password?",
+                    fontSize: 14,
+                    color: Colors.orange.shade800,
+                    fontWeight: FontWeight.w300,
+                  ),
+                  const SizedBox(
+                    height: 15,
+                  ),
+                ],
+              ),
+              CustomButton1(
+                text: "Sign In",
+                bgColor: Colors.orange.shade800,
+                size: size,
+                ontap: () {},
+              ),
+              const SizedBox(
+                height: 6,
+              ),
+              GoogleButton(ontap: () {}, size: size),
+              const SizedBox(
+                height: 10,
+              ),
+              Center(
+                child: Text.rich(
+                    TextSpan(text: "Don't have an account?", children: [
+                  TextSpan(
+                      text: "Sign Up",
+                      style: GoogleFonts.poppins(color: Colors.orange.shade800))
+                ])),
               )
             ],
           ),
         ),
       ),
-    );
-  }
-}
-
-class CustomTextField1 extends StatefulWidget {
-  const CustomTextField1({
-    required this.label,
-    required this.icon,
-    this.isPassword = false,
-    super.key,
-  });
-
-  final String label;
-  final IconData icon;
-  final bool isPassword;
-
-  @override
-  State<CustomTextField1> createState() => _CustomTextField1State();
-}
-
-class _CustomTextField1State extends State<CustomTextField1> {
-  bool isObscure = true;
-  @override
-  Widget build(BuildContext context) {
-    return TextField(
-      obscureText: isObscure,
-      decoration: InputDecoration(
-          label: Text(widget.label),
-          border: const OutlineInputBorder(),
-          prefixIcon: Icon(
-            widget.icon,
-          ),
-          suffixIcon: widget.isPassword
-              ? InkWell(
-                  onTap: () {
-                    setState(() {
-                      isObscure = !isObscure;
-                    });
-                  },
-                  child:
-                      Icon(isObscure ? Icons.visibility_off : Icons.visibility))
-              : null),
     );
   }
 }
