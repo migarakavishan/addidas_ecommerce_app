@@ -1,4 +1,4 @@
-import 'package:addidas_ecommerce_app/screens/auth_screen/signin_page.dart';
+import 'package:addidas_ecommerce_app/screens/splash_screen/splash_screen.dart';
 import 'package:flutter/material.dart';
 
 void main() {
@@ -18,7 +18,7 @@ class MyApp extends StatelessWidget {
         colorScheme: ColorScheme.fromSeed(seedColor: Colors.orange),
         useMaterial3: true,
       ),
-      home: const SignInPage(),
+      home: const SplashScreen(),
     );
   }
 }

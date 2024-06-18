@@ -1,3 +1,4 @@
+import 'package:addidas_ecommerce_app/screens/auth_screen/forgot_password.dart';
 import 'package:addidas_ecommerce_app/screens/auth_screen/signup_page.dart';
 import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
@@ -73,11 +74,20 @@ class _SignInPageState extends State<SignInPage> {
                   const Spacer(
                     flex: 1,
                   ),
-                  CustomPoppinsText(
-                    text: "Foget Password?",
-                    fontSize: 14,
-                    color: Colors.orange.shade800,
-                    fontWeight: FontWeight.w300,
+                  InkWell(
+                    onTap: () {
+                      Navigator.push(
+                          context,
+                          MaterialPageRoute(
+                            builder: (context) => const ForgotPassword(),
+                          ));
+                    },
+                    child: CustomPoppinsText(
+                      text: "Foget Password?",
+                      fontSize: 14,
+                      color: Colors.orange.shade800,
+                      fontWeight: FontWeight.w300,
+                    ),
                   ),
                   const SizedBox(
                     height: 15,
