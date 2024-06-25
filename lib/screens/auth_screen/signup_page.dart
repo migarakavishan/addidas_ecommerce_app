@@ -1,5 +1,7 @@
+import 'package:addidas_ecommerce_app/controllers/auth_controller.dart';
 import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
+import 'package:logger/logger.dart';
 
 import '../../components/custom_button/custom_button1.dart';
 import '../../components/custom_button/google_button.dart';
@@ -72,7 +74,18 @@ class _SignUpPageState extends State<SignUpPage> {
                 text: "Create Account",
                 bgColor: Colors.orange.shade800,
                 size: size,
-                ontap: () {},
+                ontap: () {
+                  if (emailController.text.trim().isEmpty ||
+                      passwordController.text.trim().isEmpty ||
+                      passwordController.text !=
+                          confirmPasswordController.text) {
+                    Logger().e("Invalid Data");
+                  } else {
+                    AuthController().createAccount(
+                        email: emailController.text,
+                        password: passwordController.text);
+                  }
+                },
               ),
               const SizedBox(
                 height: 6,

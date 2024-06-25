@@ -19,7 +19,7 @@ class CustomTextField1 extends StatefulWidget {
 }
 
 class _CustomTextField1State extends State<CustomTextField1> {
-  bool isObscure = true;
+  bool isObscure = false;
   @override
   Widget build(BuildContext context) {
     return TextField(
@@ -39,7 +39,7 @@ class _CustomTextField1State extends State<CustomTextField1> {
                     });
                   },
                   child:
-                      Icon(isObscure ? Icons.visibility_off : Icons.visibility))
+                      Icon(isObscure ? Icons.visibility : Icons.visibility_off))
               : null),
     );
   }

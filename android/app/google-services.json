@@ -1,0 +1,29 @@
+{
+  "project_info": {
+    "project_number": "404757104145",
+    "project_id": "adidasapp-9dbbb",
+    "storage_bucket": "adidasapp-9dbbb.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:404757104145:android:058bd931843904fe58d3b0",
+        "android_client_info": {
+          "package_name": "lk.migara.adidas"
+        }
+      },
+      "oauth_client": [],
+      "api_key": [
+        {
+          "current_key": "AIzaSyCmlhiJVMcx7-u6ma8lAhhBej2YPcxOjUM"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": []
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}
