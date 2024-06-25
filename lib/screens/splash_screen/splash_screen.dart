@@ -25,7 +25,7 @@ class _SplashScreenState extends State<SplashScreen> {
             Logger().e('User is currently signed out!');
             CustomNavigators.goTo(context, const SignInPage());
           } else {
-            Logger().i('User is signed in!');
+            Logger().i('User is Signed in!');
             Logger().f(user);
             CustomNavigators.goTo(context, const HomePage());
           }
