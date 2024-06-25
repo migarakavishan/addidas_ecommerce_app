@@ -1,6 +1,6 @@
 import 'package:addidas_ecommerce_app/screens/auth_screen/forgot_password.dart';
 import 'package:addidas_ecommerce_app/screens/auth_screen/signup_page.dart';
-import 'package:addidas_ecommerce_app/screens/home_screen/cart/cart_screen.dart';
+import 'package:addidas_ecommerce_app/screens/home_screen/HomePage/homepage.dart';
 import 'package:addidas_ecommerce_app/utils/custom_navigators.dart';
 import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
@@ -97,7 +97,7 @@ class _SignInPageState extends State<SignInPage> {
                 bgColor: Colors.orange.shade800,
                 size: size,
                 ontap: () {
-                  CustomNavigators.goTo(context, const CartScreen());
+                  CustomNavigators.goTo(context, const HomePage());
                 },
               ),
               const SizedBox(
