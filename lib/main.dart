@@ -1,4 +1,5 @@
 import 'package:addidas_ecommerce_app/firebase_options.dart';
+import 'package:addidas_ecommerce_app/providers/siginin_provider.dart';
 import 'package:addidas_ecommerce_app/providers/signup_provider.dart';
 import 'package:addidas_ecommerce_app/screens/splash_screen/splash_screen.dart';
 import 'package:firebase_core/firebase_core.dart';
@@ -11,7 +12,10 @@ Future<void> main() async {
     options: DefaultFirebaseOptions.currentPlatform,
   );
   runApp(MultiProvider(
-    providers: [ChangeNotifierProvider(create: (context) => SignupProvider())],
+    providers: [
+      ChangeNotifierProvider(create: (context) => SignupProvider()),
+      ChangeNotifierProvider(create: (context) => SigininProvider())
+    ],
     child: const MyApp(),
   ));
 }

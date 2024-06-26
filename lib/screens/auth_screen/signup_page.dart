@@ -1,7 +1,7 @@
-import 'package:addidas_ecommerce_app/controllers/auth_controller.dart';
+import 'package:addidas_ecommerce_app/providers/signup_provider.dart';
 import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
-import 'package:logger/logger.dart';
+import 'package:provider/provider.dart';
 
 import '../../components/custom_button/custom_button1.dart';
 import '../../components/custom_button/google_button.dart';
@@ -16,18 +16,14 @@ class SignUpPage extends StatefulWidget {
 }
 
 class _SignUpPageState extends State<SignUpPage> {
-  TextEditingController emailController = TextEditingController();
-  TextEditingController passwordController = TextEditingController();
-  TextEditingController confirmPasswordController = TextEditingController();
-
   @override
   Widget build(BuildContext context) {
     final size = MediaQuery.sizeOf(context);
     return Scaffold(
       body: Padding(
         padding: const EdgeInsets.all(8.0),
-        child: Center(
-          child: Column(
+        child: Consumer<SignupProvider>(builder: (context, value, child) {
+          return Column(
             crossAxisAlignment: CrossAxisAlignment.start,
             mainAxisAlignment: MainAxisAlignment.center,
             children: [
@@ -47,7 +43,7 @@ class _SignUpPageState extends State<SignUpPage> {
               CustomTextField1(
                 label: "Email",
                 icon: Icons.email,
-                controller: emailController,
+                controller: value.emailController,
               ),
               const SizedBox(
                 height: 10,
@@ -56,7 +52,7 @@ class _SignUpPageState extends State<SignUpPage> {
                 label: "Password",
                 icon: Icons.password,
                 isPassword: true,
-                controller: passwordController,
+                controller: value.passwordController,
               ),
               const SizedBox(
                 height: 10,
@@ -65,7 +61,7 @@ class _SignUpPageState extends State<SignUpPage> {
                 label: "Confirm Password",
                 icon: Icons.password,
                 isPassword: true,
-                controller: confirmPasswordController,
+                controller: value.confirmPasswordController,
               ),
               const SizedBox(
                 height: 10,
@@ -75,16 +71,7 @@ class _SignUpPageState extends State<SignUpPage> {
                 bgColor: Colors.orange.shade800,
                 size: size,
                 ontap: () {
-                  if (emailController.text.trim().isEmpty ||
-                      passwordController.text.trim().isEmpty ||
-                      passwordController.text !=
-                          confirmPasswordController.text) {
-                    Logger().e("Invalid Data");
-                  } else {
-                    AuthController().createAccount(
-                        email: emailController.text,
-                        password: passwordController.text);
-                  }
+                  value.startSignUp();
                 },
               ),
               const SizedBox(
@@ -113,8 +100,8 @@ class _SignUpPageState extends State<SignUpPage> {
                 ),
               )
             ],
-          ),
-        ),
+          );
+        }),
       ),
     );
   }

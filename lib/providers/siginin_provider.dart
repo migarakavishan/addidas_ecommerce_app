@@ -1,28 +1,23 @@
 import 'package:addidas_ecommerce_app/controllers/auth_controller.dart';
-import 'package:flutter/material.dart';
+import 'package:flutter/cupertino.dart';
 import 'package:logger/logger.dart';
 
-class SignupProvider extends ChangeNotifier {
+class SigininProvider extends ChangeNotifier {
   AuthController authController = AuthController();
   final TextEditingController _emailController = TextEditingController();
   final TextEditingController _passwordController = TextEditingController();
-  final TextEditingController _confirmPasswordController =
-      TextEditingController();
 
   TextEditingController get emailController => _emailController;
   TextEditingController get passwordController => _passwordController;
-  TextEditingController get confirmPasswordController =>
-      _confirmPasswordController;
 
-  Future<void> startSignUp() async {
+  Future<void> startSignIn() async {
     if (_emailController.text.trim().isEmpty ||
-        _passwordController.text.trim().isEmpty ||
-        _passwordController.text != confirmPasswordController.text) {
-      Logger().e("Invalid Data");
+        _passwordController.text.trim().isEmpty) {
+      Logger().e("Invalid data");
     } else {
       authController
-          .createAccount(
-              email: emailController.text, password: passwordController.text)
+          .signInWithPassword(
+              email: _emailController.text, password: _passwordController.text)
           .then(
         (value) {
           clearTextField();
@@ -34,7 +29,6 @@ class SignupProvider extends ChangeNotifier {
   void clearTextField() {
     _emailController.clear();
     _passwordController.clear();
-    _confirmPasswordController.clear();
     notifyListeners();
   }
 }
