@@ -1,4 +1,5 @@
 import 'package:addidas_ecommerce_app/providers/siginin_provider.dart';
+import 'package:addidas_ecommerce_app/screens/auth_screen/forgot_password.dart';
 import 'package:addidas_ecommerce_app/screens/auth_screen/signup_page.dart';
 import 'package:addidas_ecommerce_app/utils/custom_navigators.dart';
 import 'package:flutter/material.dart';
@@ -76,7 +77,7 @@ class _SignInPageState extends State<SignInPage> {
                     ),
                     InkWell(
                       onTap: () {
-                        value.startSignIn();
+                        CustomNavigators.goTo(context, const ForgotPassword());
                       },
                       child: CustomPoppinsText(
                         text: "Foget Password?",

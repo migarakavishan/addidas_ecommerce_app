@@ -25,7 +25,9 @@ class SignupProvider extends ChangeNotifier {
               email: emailController.text, password: passwordController.text)
           .then(
         (value) {
-          clearTextField();
+          if (value) {
+            clearTextField();
+          }
         },
       );
     }
