@@ -1,7 +1,29 @@
+import 'package:addidas_ecommerce_app/providers/auth_provider.dart'
+    as auth_provider;
+import 'package:addidas_ecommerce_app/screens/auth_screen/signin_page.dart';
+import 'package:addidas_ecommerce_app/screens/home_screen/HomePage/homepage.dart';
+import 'package:addidas_ecommerce_app/utils/custom_navigators.dart';
 import 'package:firebase_auth/firebase_auth.dart';
+import 'package:flutter/material.dart';
 import 'package:logger/logger.dart';
+import 'package:provider/provider.dart';
 
 class AuthController {
+  Future<void> listenAuthState(BuildContext context) async {
+    FirebaseAuth.instance.authStateChanges().listen((User? user) {
+      if (user == null) {
+        Logger().e('User is currently signed out!');
+        CustomNavigators.goTo(context, const SignInPage());
+      } else {
+        Provider.of<auth_provider.AuthProvider>(context, listen: false).setUser(
+            user); // this prefix thing was add because that AuthProvider cannt access tha auth_provider class that i create
+        Logger().i('User is Signed in!');
+        Logger().f(user);
+        CustomNavigators.goTo(context, const HomePage());
+      }
+    });
+  }
+
   Future<bool> createAccount(
       {required String email, required String password}) async {
     try {
