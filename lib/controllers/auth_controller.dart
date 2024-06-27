@@ -1,14 +1,17 @@
+import 'package:addidas_ecommerce_app/models/user_model.dart';
 import 'package:addidas_ecommerce_app/providers/auth_provider.dart'
     as auth_provider;
 import 'package:addidas_ecommerce_app/screens/auth_screen/signin_page.dart';
 import 'package:addidas_ecommerce_app/screens/home_screen/HomePage/homepage.dart';
 import 'package:addidas_ecommerce_app/utils/custom_navigators.dart';
+import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:logger/logger.dart';
 import 'package:provider/provider.dart';
 
 class AuthController {
+  CollectionReference users = FirebaseFirestore.instance.collection("Users");
   Future<void> listenAuthState(BuildContext context) async {
     FirebaseAuth.instance.authStateChanges().listen((User? user) {
       if (user == null) {
@@ -25,12 +28,20 @@ class AuthController {
   }
 
   Future<bool> createAccount(
-      {required String email, required String password}) async {
+      {required String email,
+      required String password,
+      required String name}) async {
     try {
-      await FirebaseAuth.instance.createUserWithEmailAndPassword(
+      final credential =
+          await FirebaseAuth.instance.createUserWithEmailAndPassword(
         email: email,
         password: password,
       );
+      if (credential.user != null) {
+        UserModel model = UserModel(
+            name: name, email: email, image: "https://cdn.pixabay.com/photo/2015/10/05/22/37/blank-profile-picture-973460_960_720.png", uid: credential.user!.uid);
+        addUserData(model);
+      }
       return true;
     } on FirebaseAuthException catch (e) {
       if (e.code == 'weak-password') {
@@ -67,5 +78,14 @@ class AuthController {
 
   Future<void> sendpasswordRestEmail(String email) async {
     await FirebaseAuth.instance.sendPasswordResetEmail(email: email);
+  }
+
+  Future<void> addUserData(UserModel user) async {
+    try {
+      users.doc(user.uid).set(user.toJson());
+      Logger().f("User data Added");
+    } catch (e) {
+      Logger().e(e);
+    }
   }
 }

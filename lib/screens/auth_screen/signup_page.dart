@@ -41,6 +41,14 @@ class _SignUpPageState extends State<SignUpPage> {
                 height: 10,
               ),
               CustomTextField1(
+                label: "User Name",
+                icon: Icons.person,
+                controller: value.nameController,
+              ),
+              const SizedBox(
+                height: 10,
+              ),
+              CustomTextField1(
                 label: "Email",
                 icon: Icons.email,
                 controller: value.emailController,
