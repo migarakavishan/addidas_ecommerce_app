@@ -35,7 +35,8 @@ class _HomePageState extends State<HomePage> {
                 height: 8,
               ),
               CustomPoppinsText(
-                text: "Hello ${Provider.of<AuthProvider>(context).user!.email}",
+                text:
+                    "Hello ${Provider.of<AuthProvider>(context).userModel!.name}",
                 fontWeight: FontWeight.w500,
               ),
               CustomPoppinsText(

@@ -21,8 +21,22 @@ class AuthController {
         Provider.of<auth_provider.AuthProvider>(context, listen: false).setUser(
             user); // this prefix thing was add because that AuthProvider cannt access tha auth_provider class that i create
         Logger().i('User is Signed in!');
-        Logger().f(user);
-        CustomNavigators.goTo(context, const HomePage());
+        fetchUserData(user.uid).then((value) {
+          if (value != null) {
+            Provider.of<auth_provider.AuthProvider>(context, listen: false)
+                .setUserModel(value);
+            CustomNavigators.goTo(context, const HomePage());
+          } else {
+            Provider.of<auth_provider.AuthProvider>(context, listen: false)
+                .setUserModel(UserModel(
+                    email: user.uid,
+                    image:
+                        "https://cdn.pixabay.com/photo/2015/10/05/22/37/blank-profile-picture-973460_960_720.png",
+                    name: "",
+                    uid: user.uid));
+            CustomNavigators.goTo(context, const HomePage());
+          }
+        });
       }
     });
   }
@@ -39,7 +53,11 @@ class AuthController {
       );
       if (credential.user != null) {
         UserModel model = UserModel(
-            name: name, email: email, image: "https://cdn.pixabay.com/photo/2015/10/05/22/37/blank-profile-picture-973460_960_720.png", uid: credential.user!.uid);
+            name: name,
+            email: email,
+            image:
+                "https://cdn.pixabay.com/photo/2015/10/05/22/37/blank-profile-picture-973460_960_720.png",
+            uid: credential.user!.uid);
         addUserData(model);
       }
       return true;
@@ -86,6 +104,16 @@ class AuthController {
       Logger().f("User data Added");
     } catch (e) {
       Logger().e(e);
+    }
+  }
+
+  Future<UserModel?> fetchUserData(String uid) async {
+    try {
+      DocumentSnapshot snapshot = await users.doc(uid).get();
+      return UserModel.fromJson(snapshot.data() as Map<String, dynamic>);
+    } catch (e) {
+      Logger().e(e);
+      return null;
     }
   }
 }
