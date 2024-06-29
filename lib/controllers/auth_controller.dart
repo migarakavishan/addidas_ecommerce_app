@@ -2,7 +2,7 @@ import 'package:addidas_ecommerce_app/models/user_model.dart';
 import 'package:addidas_ecommerce_app/providers/auth_provider.dart'
     as auth_provider;
 import 'package:addidas_ecommerce_app/screens/auth_screen/signin_page.dart';
-import 'package:addidas_ecommerce_app/screens/home_screen/HomePage/homepage.dart';
+import 'package:addidas_ecommerce_app/screens/home_screen/main_screen.dart';
 import 'package:addidas_ecommerce_app/utils/custom_navigators.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:firebase_auth/firebase_auth.dart';
@@ -25,7 +25,7 @@ class AuthController {
           if (value != null) {
             Provider.of<auth_provider.AuthProvider>(context, listen: false)
                 .setUserModel(value);
-            CustomNavigators.goTo(context, const HomePage());
+            CustomNavigators.goTo(context, const MainScreen());
           } else {
             Provider.of<auth_provider.AuthProvider>(context, listen: false)
                 .setUserModel(UserModel(
@@ -34,7 +34,7 @@ class AuthController {
                         "https://cdn.pixabay.com/photo/2015/10/05/22/37/blank-profile-picture-973460_960_720.png",
                     name: "",
                     uid: user.uid));
-            CustomNavigators.goTo(context, const HomePage());
+            CustomNavigators.goTo(context, const MainScreen());
           }
         });
       }
