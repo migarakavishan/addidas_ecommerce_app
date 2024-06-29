@@ -24,16 +24,19 @@ class AuthController {
         fetchUserData(user.uid).then((value) {
           if (value != null) {
             Provider.of<auth_provider.AuthProvider>(context, listen: false)
-                .setUserModel(value);
+                .setUserModel(value, context, value.name);
             CustomNavigators.goTo(context, const MainScreen());
           } else {
             Provider.of<auth_provider.AuthProvider>(context, listen: false)
-                .setUserModel(UserModel(
-                    email: user.uid,
-                    image:
-                        "https://cdn.pixabay.com/photo/2015/10/05/22/37/blank-profile-picture-973460_960_720.png",
-                    name: "",
-                    uid: user.uid));
+                .setUserModel(
+                    UserModel(
+                        email: user.uid,
+                        image:
+                            "https://cdn.pixabay.com/photo/2015/10/05/22/37/blank-profile-picture-973460_960_720.png",
+                        name: "",
+                        uid: user.uid),
+                    context,
+                    "");
             CustomNavigators.goTo(context, const MainScreen());
           }
         });
@@ -114,6 +117,14 @@ class AuthController {
     } catch (e) {
       Logger().e(e);
       return null;
+    }
+  }
+
+  Future<void> updateUser(String uid, String name) async {
+    try {
+      await users.doc(uid).update({"name": name});
+    } catch (e) {
+      Logger().e(e);
     }
   }
 }
