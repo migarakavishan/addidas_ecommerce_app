@@ -34,11 +34,37 @@ class _ProfileScreenState extends State<ProfileScreen> {
                                   "https://t4.ftcdn.net/jpg/05/31/79/83/360_F_531798391_XFz7gyPmDRTAfiEE5sRjFu5NpKrJt4rC.jpg"),
                               fit: BoxFit.cover)),
                     ),
-                    Align(
-                      alignment: Alignment.bottomCenter,
-                      child: CircleAvatar(
-                        radius: 50,
-                        backgroundImage: NetworkImage(auth.userModel!.image),
+                    InkWell(
+                      onTap: () {
+                        profile.pickProfileImage();
+                      },
+                      child: Align(
+                        alignment: Alignment.bottomCenter,
+                        child: CircleAvatar(
+                          radius: 50,
+                          backgroundImage: profile.pickedImage == null
+                              ? NetworkImage(auth.userModel!.image)
+                              : FileImage(profile.pickedImage!)
+                                  as ImageProvider,
+                          child: Stack(
+                            children: [
+                              Positioned(
+                                bottom: 6,
+                                right: 6,
+                                child: CircleAvatar(
+                                  radius: 12,
+                                  backgroundColor:
+                                      Colors.black.withOpacity(0.5),
+                                  child: const Icon(
+                                    Icons.edit,
+                                    size: 15,
+                                    color: Colors.white,
+                                  ),
+                                ),
+                              )
+                            ],
+                          ),
+                        ),
                       ),
                     )
                   ],
