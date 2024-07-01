@@ -120,9 +120,10 @@ class AuthController {
     }
   }
 
-  Future<void> updateUser(String uid, String name) async {
+  Future<void> updateUser(Map<String, dynamic> data, String uid) async {
     try {
-      await users.doc(uid).update({"name": name});
+      await users.doc(uid).update(data);
+      Logger().f("User Updated");
     } catch (e) {
       Logger().e(e);
     }

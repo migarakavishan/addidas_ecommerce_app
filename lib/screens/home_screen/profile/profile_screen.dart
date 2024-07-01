@@ -34,7 +34,7 @@ class _ProfileScreenState extends State<ProfileScreen> {
                                   "https://t4.ftcdn.net/jpg/05/31/79/83/360_F_531798391_XFz7gyPmDRTAfiEE5sRjFu5NpKrJt4rC.jpg"),
                               fit: BoxFit.cover)),
                     ),
-                    InkWell(
+                    GestureDetector(
                       onTap: () {
                         profile.pickProfileImage();
                       },
