@@ -36,7 +36,7 @@ class _ProfileScreenState extends State<ProfileScreen> {
                     ),
                     GestureDetector(
                       onTap: () {
-                        profile.pickProfileImage();
+                        profile.pickProfileImage(context);
                       },
                       child: Align(
                         alignment: Alignment.bottomCenter,
