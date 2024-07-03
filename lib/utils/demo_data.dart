@@ -1,9 +1,9 @@
 import 'package:addidas_ecommerce_app/models/sneaker_model.dart';
 
-class DemoData{
+class DemoData {
   static List<SneakerModel> sneakers = [
     SneakerModel(
-      id: 1000,
+      id: "1000",
       title: 'Classic Sneaker',
       description: 'A timeless classic that never goes out of style.',
       image:
@@ -11,7 +11,7 @@ class DemoData{
       price: 45000,
     ),
     SneakerModel(
-      id: 2001,
+      id: "2001",
       title: 'High-Top Runner',
       description:
           'Designed for high-performance runners seeking comfort and speed.',
@@ -20,7 +20,7 @@ class DemoData{
       price: 55000,
     ),
     SneakerModel(
-      id: 3002,
+      id: "3002",
       title: 'Urban Streetwear',
       description: 'The perfect blend of style and urban street culture.',
       image:
@@ -28,7 +28,7 @@ class DemoData{
       price: 38000,
     ),
     SneakerModel(
-      id: 4003,
+      id: "4003",
       title: 'Sleek Athlete',
       description:
           'Sleek and lightweight, suitable for various sports activities.',
@@ -37,7 +37,7 @@ class DemoData{
       price: 62000,
     ),
     SneakerModel(
-      id: 5004,
+      id: "5004",
       title: 'Retro Vintage',
       description: 'Inspired by vintage designs, a tribute to the past.',
       image:
@@ -45,7 +45,7 @@ class DemoData{
       price: 50000,
     ),
     SneakerModel(
-      id: 6005,
+      id: "6005",
       title: 'Modern Casual',
       description:
           'A versatile sneaker that complements both casual and semi-formal outfits.',
@@ -54,7 +54,7 @@ class DemoData{
       price: 42000,
     ),
     SneakerModel(
-      id: 7006,
+      id: "7006",
       title: 'Sporty Elegance',
       description:
           'Unite sporty functionality with elegant aesthetics for a unique style.',
@@ -63,7 +63,7 @@ class DemoData{
       price: 78000,
     ),
     SneakerModel(
-      id: 8007,
+      id: "8007",
       title: 'Tech Innovator',
       description:
           'Incorporates advanced technology to enhance your walking and running experience.',
@@ -72,7 +72,7 @@ class DemoData{
       price: 59000,
     ),
     SneakerModel(
-      id: 9008,
+      id: "9008",
       title: 'Vibrant Chic',
       description:
           'Add a pop of color and vibrancy to your fashion with these chic sneakers.',
@@ -81,7 +81,7 @@ class DemoData{
       price: 52000,
     ),
     SneakerModel(
-      id: 10009,
+      id: "10009",
       title: 'Adventure Trail',
       description:
           'Ready to conquer the great outdoors, these sneakers offer durability and grip.',
@@ -90,7 +90,7 @@ class DemoData{
       price: 67000,
     ),
     SneakerModel(
-      id: 11010,
+      id: "11010",
       title: 'Modern Fusion',
       description:
           'Combines modern aesthetics with classic elements for a fresh look.',
@@ -99,7 +99,7 @@ class DemoData{
       price: 44000,
     ),
     SneakerModel(
-      id: 12011,
+      id: "12011",
       title: 'Dynamic Energy',
       description:
           'Energize your steps with these dynamic sneakers that keep up with your pace.',
@@ -116,5 +116,4 @@ class DemoData{
     "https://i8.amplience.net/i/office/DN_PIC_landscape_2",
     "https://www.instyle.com/thmb/yNwBn2QCADyJXh5PHXzCCvCSPos=/1500x0/filters:no_upscale():max_bytes(150000):strip_icc()/01-Landscape-aaa5c2196da743439f5cfd309d8be943.jpg",
   ];
-
 }

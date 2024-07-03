@@ -22,48 +22,70 @@ class _AdminScreenState extends State<AdminScreen> {
         builder: (context, value, child) {
           return Padding(
             padding: const EdgeInsets.all(8.0),
-            child: Column(
-              children: [
-                const Divider(),
-                const CircleAvatar(
-                  radius: 100,
-                  child: Icon(
-                    Icons.add,
-                    size: 50,
+            child: SingleChildScrollView(
+              child: Column(
+                children: [
+                  const Divider(),
+                  GestureDetector(
+                    onTap: () {
+                      value.pickImage(context);
+                    },
+                    child: Container(
+                      width: 300,
+                      height: 150,
+                      decoration: value.imageFile != null
+                          ? BoxDecoration(
+                              borderRadius: BorderRadius.circular(20),
+                              image: DecorationImage(
+                                  fit: BoxFit.cover,
+                                  image: FileImage(value.imageFile!)))
+                          : null,
+                      child: value.imageFile == null
+                          ? const CircleAvatar(
+                              radius: 100,
+                              child: Icon(
+                                Icons.add,
+                                size: 80,
+                              ),
+                            )
+                          : null,
+                    ),
                   ),
-                ),
-                const SizedBox(
-                  height: 10,
-                ),
-                CustomTextField1(
-                    label: "Product Name",
-                    icon: Icons.production_quantity_limits_outlined,
-                    controller: value.nameController),
-                const SizedBox(
-                  height: 10,
-                ),
-                CustomTextField1(
-                    label: "Description",
-                    icon: Icons.production_quantity_limits_outlined,
-                    controller: value.descriptionController),
-                const SizedBox(
-                  height: 10,
-                ),
-                CustomTextField1(
-                    label: "Price",
-                    icon: Icons.production_quantity_limits_outlined,
-                    controller: value.descriptionController,
-                    keyboardType: TextInputType.number),
-                const SizedBox(
-                  height: 10,
-                ),
-                CustomButton1(
-                  text: "Add Product",
-                  bgColor: Colors.orange.shade800,
-                  size: MediaQuery.sizeOf(context),
-                  ontap: () {},
-                )
-              ],
+                  const SizedBox(
+                    height: 10,
+                  ),
+                  CustomTextField1(
+                      label: "Product Name",
+                      icon: Icons.production_quantity_limits_outlined,
+                      controller: value.nameController),
+                  const SizedBox(
+                    height: 10,
+                  ),
+                  CustomTextField1(
+                      label: "Description",
+                      icon: Icons.production_quantity_limits_outlined,
+                      controller: value.descriptionController),
+                  const SizedBox(
+                    height: 10,
+                  ),
+                  CustomTextField1(
+                      label: "Price",
+                      icon: Icons.production_quantity_limits_outlined,
+                      controller: value.priceController,
+                      keyboardType: TextInputType.number),
+                  const SizedBox(
+                    height: 10,
+                  ),
+                  CustomButton1(
+                    text: "Add Product",
+                    bgColor: Colors.orange.shade800,
+                    size: MediaQuery.sizeOf(context),
+                    ontap: () {
+                      value.addProduct(context);
+                    },
+                  )
+                ],
+              ),
             ),
           );
         },
