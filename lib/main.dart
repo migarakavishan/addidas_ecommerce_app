@@ -1,4 +1,5 @@
 import 'package:addidas_ecommerce_app/firebase_options.dart';
+import 'package:addidas_ecommerce_app/providers/admin_provider.dart';
 import 'package:addidas_ecommerce_app/providers/auth_provider.dart';
 import 'package:addidas_ecommerce_app/providers/main_screen_provider.dart';
 import 'package:addidas_ecommerce_app/providers/profile_provider.dart';
@@ -22,6 +23,7 @@ Future<void> main() async {
       ChangeNotifierProvider(create: (context) => AuthProvider()),
       ChangeNotifierProvider(create: (context) => MainScreenProvider()),
       ChangeNotifierProvider(create: (context) => ProfileProvider()),
+      ChangeNotifierProvider(create: (context) => AdminProvider()),
     ],
     child: const MyApp(),
   ));

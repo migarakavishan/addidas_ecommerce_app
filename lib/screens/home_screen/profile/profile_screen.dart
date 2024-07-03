@@ -2,6 +2,8 @@ import 'package:addidas_ecommerce_app/components/custom_button/custom_button1.da
 import 'package:addidas_ecommerce_app/components/custom_text_field/custom_textfield1.dart';
 import 'package:addidas_ecommerce_app/providers/auth_provider.dart';
 import 'package:addidas_ecommerce_app/providers/profile_provider.dart';
+import 'package:addidas_ecommerce_app/screens/home_screen/admin/admin_screen.dart';
+import 'package:addidas_ecommerce_app/utils/custom_navigators.dart';
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 
@@ -98,6 +100,12 @@ class _ProfileScreenState extends State<ProfileScreen> {
             ],
           );
         },
+      ),
+      floatingActionButton: FloatingActionButton(
+        onPressed: () {
+          CustomNavigators.goTo(context, const AdminScreen());
+        },
+        child: const Icon(Icons.admin_panel_settings_sharp),
       ),
     );
   }
