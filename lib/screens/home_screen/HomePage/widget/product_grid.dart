@@ -1,7 +1,9 @@
 import 'package:addidas_ecommerce_app/components/custom_text/custom_poppins_text.dart';
 import 'package:addidas_ecommerce_app/controllers/product_controller.dart';
 import 'package:addidas_ecommerce_app/models/sneaker_model.dart';
+import 'package:addidas_ecommerce_app/providers/auth_provider.dart';
 import 'package:flutter/material.dart';
+import 'package:provider/provider.dart';
 import 'package:shimmer/shimmer.dart';
 
 class ProductGrid extends StatelessWidget {
@@ -10,7 +12,7 @@ class ProductGrid extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return FutureBuilder(
-      future: ProductController().fetchProducts(),
+      future: ProductController().fetchProducts(context),
       builder: (context, snapshot) {
         if (snapshot.hasError) {
           return const Text("Has Error");
@@ -53,30 +55,45 @@ class ProductGrid extends StatelessWidget {
                 color: Colors.grey.shade400,
                 borderRadius: BorderRadius.circular(15),
               ),
-              child: Padding(
-                padding: const EdgeInsets.all(8.0),
-                child: Stack(
-                  children: [
-                    Row(
-                      mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                      children: [
-                        Chip(label: Text("LKR ${sneakers[index].price}0")),
-                        const Icon(
-                          Icons.favorite_outline_rounded,
-                          color: Colors.grey,
-                        )
-                      ],
-                    ),
-                    Positioned(
-                        bottom: 5,
-                        child: CustomPoppinsText(
-                          text: sneakers[index].title,
-                          fontSize: 15,
-                          fontWeight: FontWeight.w500,
-                        ))
-                  ],
-                ),
-              ),
+              child: Consumer<AuthProvider>(builder: (context, value, child) {
+                return Padding(
+                  padding: const EdgeInsets.all(8.0),
+                  child: Stack(
+                    children: [
+                      Row(
+                        mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                        children: [
+                          Chip(label: Text("LKR ${sneakers[index].price}0")),
+                          GestureDetector(
+                            onTap: () {
+                              if (value.favID.contains(sneakers[index].id)) {
+                                value.removeFromFav(sneakers[index]);
+                              } else {
+                                value.addToFav(sneakers[index]);
+                              }
+                            },
+                            child: Icon(
+                              value.favID.contains(sneakers[index].id)
+                                  ? Icons.favorite
+                                  : Icons.favorite_outline_rounded,
+                              color: value.favID.contains(sneakers[index].id)
+                                  ? Colors.red
+                                  : Colors.grey,
+                            ),
+                          )
+                        ],
+                      ),
+                      Positioned(
+                          bottom: 5,
+                          child: CustomPoppinsText(
+                            text: sneakers[index].title,
+                            fontSize: 15,
+                            fontWeight: FontWeight.w500,
+                          ))
+                    ],
+                  ),
+                );
+              }),
             );
           },
         );

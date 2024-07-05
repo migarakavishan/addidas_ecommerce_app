@@ -1,3 +1,5 @@
+import 'package:addidas_ecommerce_app/providers/admin_provider.dart';
+import 'package:addidas_ecommerce_app/providers/auth_provider.dart';
 import 'package:addidas_ecommerce_app/providers/main_screen_provider.dart';
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
@@ -12,13 +14,15 @@ class MainScreen extends StatefulWidget {
 class _MainScreenState extends State<MainScreen> {
   @override
   Widget build(BuildContext context) {
-    return Consumer<MainScreenProvider>(builder: (context, value, child) {
+    return Consumer3<MainScreenProvider, AuthProvider, AdminProvider>(
+        builder: (context, value, auth, admin, child) {
       return Scaffold(
         body: value.screen,
         bottomNavigationBar: BottomNavigationBar(
             type: BottomNavigationBarType.fixed,
             currentIndex: value.currentIndex,
             onTap: (index) {
+              
               value.setIndex(index);
             },
             items: const [

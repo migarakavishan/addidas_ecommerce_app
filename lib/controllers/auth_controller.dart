@@ -34,7 +34,8 @@ class AuthController {
                         image:
                             "https://cdn.pixabay.com/photo/2015/10/05/22/37/blank-profile-picture-973460_960_720.png",
                         name: "",
-                        uid: user.uid),
+                        uid: user.uid,
+                        favorite: []),
                     context,
                     "");
             CustomNavigators.goTo(context, const MainScreen());
@@ -60,7 +61,7 @@ class AuthController {
             email: email,
             image:
                 "https://cdn.pixabay.com/photo/2015/10/05/22/37/blank-profile-picture-973460_960_720.png",
-            uid: credential.user!.uid);
+            uid: credential.user!.uid, favorite: []);
         addUserData(model);
       }
       return true;
@@ -124,6 +125,14 @@ class AuthController {
     try {
       await users.doc(uid).update(data);
       Logger().f("User Updated");
+    } catch (e) {
+      Logger().e(e);
+    }
+  }
+
+  Future<void> updateFavorite(String uid, List<String> items) async {
+    try {
+      await users.doc(uid).update({"favorite": items});
     } catch (e) {
       Logger().e(e);
     }
