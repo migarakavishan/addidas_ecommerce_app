@@ -2,6 +2,8 @@ import 'package:addidas_ecommerce_app/components/custom_text/custom_poppins_text
 import 'package:addidas_ecommerce_app/controllers/product_controller.dart';
 import 'package:addidas_ecommerce_app/models/sneaker_model.dart';
 import 'package:addidas_ecommerce_app/providers/auth_provider.dart';
+import 'package:addidas_ecommerce_app/screens/home_screen/product_view/product_view.dart';
+import 'package:addidas_ecommerce_app/utils/custom_navigators.dart';
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 import 'package:shimmer/shimmer.dart';
@@ -46,54 +48,63 @@ class ProductGrid extends StatelessWidget {
           gridDelegate: const SliverGridDelegateWithFixedCrossAxisCount(
               crossAxisCount: 2, crossAxisSpacing: 10, mainAxisSpacing: 10),
           itemBuilder: (context, index) {
-            return Container(
-              height: 100,
-              decoration: BoxDecoration(
-                image: DecorationImage(
-                    image: NetworkImage(sneakers[index].image),
-                    fit: BoxFit.cover),
-                color: Colors.grey.shade400,
-                borderRadius: BorderRadius.circular(15),
+            return GestureDetector(
+              onTap: () {
+                CustomNavigators.goTo(
+                    context,
+                    ProductView(
+                      model: sneakers[index],
+                    ));
+              },
+              child: Container(
+                height: 100,
+                decoration: BoxDecoration(
+                  image: DecorationImage(
+                      image: NetworkImage(sneakers[index].image),
+                      fit: BoxFit.cover),
+                  color: Colors.grey.shade400,
+                  borderRadius: BorderRadius.circular(15),
+                ),
+                child: Consumer<AuthProvider>(builder: (context, value, child) {
+                  return Padding(
+                    padding: const EdgeInsets.all(8.0),
+                    child: Stack(
+                      children: [
+                        Row(
+                          mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                          children: [
+                            Chip(label: Text("LKR ${sneakers[index].price}0")),
+                            GestureDetector(
+                              onTap: () {
+                                if (value.favID.contains(sneakers[index].id)) {
+                                  value.removeFromFav(sneakers[index]);
+                                } else {
+                                  value.addToFav(sneakers[index]);
+                                }
+                              },
+                              child: Icon(
+                                value.favID.contains(sneakers[index].id)
+                                    ? Icons.favorite
+                                    : Icons.favorite_outline_rounded,
+                                color: value.favID.contains(sneakers[index].id)
+                                    ? Colors.red
+                                    : Colors.grey,
+                              ),
+                            )
+                          ],
+                        ),
+                        Positioned(
+                            bottom: 5,
+                            child: CustomPoppinsText(
+                              text: sneakers[index].title,
+                              fontSize: 15,
+                              fontWeight: FontWeight.w500,
+                            ))
+                      ],
+                    ),
+                  );
+                }),
               ),
-              child: Consumer<AuthProvider>(builder: (context, value, child) {
-                return Padding(
-                  padding: const EdgeInsets.all(8.0),
-                  child: Stack(
-                    children: [
-                      Row(
-                        mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                        children: [
-                          Chip(label: Text("LKR ${sneakers[index].price}0")),
-                          GestureDetector(
-                            onTap: () {
-                              if (value.favID.contains(sneakers[index].id)) {
-                                value.removeFromFav(sneakers[index]);
-                              } else {
-                                value.addToFav(sneakers[index]);
-                              }
-                            },
-                            child: Icon(
-                              value.favID.contains(sneakers[index].id)
-                                  ? Icons.favorite
-                                  : Icons.favorite_outline_rounded,
-                              color: value.favID.contains(sneakers[index].id)
-                                  ? Colors.red
-                                  : Colors.grey,
-                            ),
-                          )
-                        ],
-                      ),
-                      Positioned(
-                          bottom: 5,
-                          child: CustomPoppinsText(
-                            text: sneakers[index].title,
-                            fontSize: 15,
-                            fontWeight: FontWeight.w500,
-                          ))
-                    ],
-                  ),
-                );
-              }),
             );
           },
         );
