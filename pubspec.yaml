@@ -47,6 +47,8 @@ dependencies:
   firebase_storage: ^12.1.0
   image_cropper: ^7.1.0
   shimmer: ^3.0.0
+  flutter_stripe: ^10.2.0
+  flutter_dotenv: ^5.1.0
   
 dev_dependencies:
   flutter_test:
