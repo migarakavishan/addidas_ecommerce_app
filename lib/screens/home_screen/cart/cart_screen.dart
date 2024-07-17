@@ -1,7 +1,7 @@
 import 'package:addidas_ecommerce_app/components/custom_button/custom_button1.dart';
 import 'package:addidas_ecommerce_app/components/custom_text/custom_poppins_text.dart';
 import 'package:addidas_ecommerce_app/providers/cart_provider.dart';
-import 'package:addidas_ecommerce_app/services/stripe_service.dart';
+import 'package:addidas_ecommerce_app/providers/payment_provider.dart';
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 
@@ -163,8 +163,9 @@ class _CartScreenState extends State<CartScreen> {
                           bgColor: Colors.orange,
                           size: MediaQuery.sizeOf(context),
                           ontap: () {
-                            StripeService().requestPaymentIntent(
-                                (value.calculateTotal().replaceAll(".", "")));
+                            Provider.of<PaymentProvider>(context, listen: false)
+                                .getPayment(
+                                    "${value.calculateTotal().replaceAll(".", "")}0");
                           },
                         ),
                       )

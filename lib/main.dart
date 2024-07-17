@@ -3,6 +3,7 @@ import 'package:addidas_ecommerce_app/providers/admin_provider.dart';
 import 'package:addidas_ecommerce_app/providers/auth_provider.dart';
 import 'package:addidas_ecommerce_app/providers/cart_provider.dart';
 import 'package:addidas_ecommerce_app/providers/main_screen_provider.dart';
+import 'package:addidas_ecommerce_app/providers/payment_provider.dart';
 import 'package:addidas_ecommerce_app/providers/profile_provider.dart';
 import 'package:addidas_ecommerce_app/providers/siginin_provider.dart';
 import 'package:addidas_ecommerce_app/providers/signup_provider.dart';
@@ -30,6 +31,7 @@ Future<void> main() async {
       ChangeNotifierProvider(create: (context) => ProfileProvider()),
       ChangeNotifierProvider(create: (context) => AdminProvider()),
       ChangeNotifierProvider(create: (context) => CartProvider()),
+      ChangeNotifierProvider(create: (context) => PaymentProvider()),
     ],
     child: const MyApp(),
   ));
