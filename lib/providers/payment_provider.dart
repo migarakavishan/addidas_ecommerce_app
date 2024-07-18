@@ -1,12 +1,14 @@
+import 'package:addidas_ecommerce_app/providers/cart_provider.dart';
 import 'package:addidas_ecommerce_app/services/stripe_service.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_stripe/flutter_stripe.dart';
 import 'package:logger/logger.dart';
+import 'package:provider/provider.dart';
 
 class PaymentProvider extends ChangeNotifier {
   final StripeService service = StripeService();
 
-  Future<void> getPayment(String amount) async {
+  Future<void> getPayment(String amount, BuildContext context) async {
     try {
       Map<String, dynamic>? intent = await service.requestPaymentIntent(amount);
 
@@ -23,10 +25,17 @@ class PaymentProvider extends ChangeNotifier {
         if (canPresent != null) {
           await Stripe.instance.presentPaymentSheet().then((value) {
             Logger().f("Payment Success");
+            // Provider.of<CartProvider>(context, listen: false)
+            //     .saveOrders(context);
           });
         } else {
           Logger().e(
               "Cannot present the payment sheet, possibly due to initialization issues.");
+          if (context.mounted) {
+            Provider.of<CartProvider>(context, listen: false)
+                .saveOrders(context);
+            Provider.of<CartProvider>(context, listen: false).clearCart();
+          }
         }
       } else {
         Logger().e(
@@ -45,19 +54,24 @@ class PaymentProvider extends ChangeNotifier {
 // class PaymentProvider extends ChangeNotifier {
 //   StripeService service = StripeService();
 
-//   Future<void> getPayment(String amount) async {
-//     Map<String, dynamic>? intent = await service.requestPaymentIntent(amount);
+//   Future<void> getPayment(String amount, BuildContext context) async {
+//     try {
+//       Map<String, dynamic>? intent = await service.requestPaymentIntent(amount);
 
-//     if (intent != null) {
-//       await Stripe.instance.initPaymentSheet(
-//           paymentSheetParameters: SetupPaymentSheetParameters(
-//               paymentIntentClientSecret: intent['client_secret'],
-//               merchantDisplayName: "Addidas App"));
-//       await Stripe.instance.presentCustomerSheet().then((value) {
-//         Logger().f("Payment Success");
-//       });
-//     } else {
-//       Logger().e("Something went wrong");
+//       if (intent != null) {
+//         await Stripe.instance.initPaymentSheet(
+//             paymentSheetParameters: SetupPaymentSheetParameters(
+//                 paymentIntentClientSecret: intent['client_secret'],
+//                 merchantDisplayName: "Addidas App"));
+//         await Stripe.instance.presentCustomerSheet().then((value) {
+//           Logger().f("Payment Success");
+//           Provider.of<CartProvider>(context, listen: false).saveOrders(context);
+//         });
+//       } else {
+//         Logger().e("Something went wrong");
+//       }
+//     } catch (e) {
+//       Logger().e(e);
 //     }
 //   }
 // }

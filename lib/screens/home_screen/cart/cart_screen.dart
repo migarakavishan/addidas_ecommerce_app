@@ -165,7 +165,8 @@ class _CartScreenState extends State<CartScreen> {
                           ontap: () {
                             Provider.of<PaymentProvider>(context, listen: false)
                                 .getPayment(
-                                    "${value.calculateTotal().replaceAll(".", "")}0");
+                                    "${value.calculateTotal().replaceAll(".", "")}0",
+                                    context);
                           },
                         ),
                       )
