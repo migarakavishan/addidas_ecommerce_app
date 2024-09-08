@@ -1,4 +1,6 @@
 import 'package:addidas_ecommerce_app/controllers/auth_controller.dart';
+import 'package:addidas_ecommerce_app/controllers/order_controller.dart';
+import 'package:addidas_ecommerce_app/models/order_model.dart';
 import 'package:addidas_ecommerce_app/models/sneaker_model.dart';
 import 'package:addidas_ecommerce_app/models/user_model.dart';
 import 'package:addidas_ecommerce_app/providers/profile_provider.dart';
@@ -16,6 +18,8 @@ class AuthProvider extends ChangeNotifier {
   AuthController authController = AuthController();
   List<SneakerModel> _favItems = [];
   List<SneakerModel> get favItems => _favItems;
+  List<OrderModel> _myOrders = [];
+  List<OrderModel> get myOrders => _myOrders;
 
   void setUser(User user) {
     _user = user;
@@ -56,6 +60,17 @@ class AuthProvider extends ChangeNotifier {
       }
     }
     _favItems = favSneakers;
+    notifyListeners();
+  }
+
+  Future<List<OrderModel>> fetchMyOrders(BuildContext context) async {
+    _myOrders = await OrderController().fetchMyOrders(context);
+
+    return _myOrders;
+  }
+
+  void removeFromOrders(OrderModel model) {
+    _myOrders.remove(model);
     notifyListeners();
   }
 }

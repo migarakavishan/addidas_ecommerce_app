@@ -3,6 +3,7 @@ import 'package:addidas_ecommerce_app/components/custom_text_field/custom_textfi
 import 'package:addidas_ecommerce_app/providers/auth_provider.dart';
 import 'package:addidas_ecommerce_app/providers/profile_provider.dart';
 import 'package:addidas_ecommerce_app/screens/home_screen/admin/admin_screen.dart';
+import 'package:addidas_ecommerce_app/screens/home_screen/my_order/my_order.dart';
 import 'package:addidas_ecommerce_app/utils/custom_navigators.dart';
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
@@ -92,6 +93,17 @@ class _ProfileScreenState extends State<ProfileScreen> {
                       size: size,
                       ontap: () {
                         profile.updateUserData(context);
+                      },
+                    ),
+                    const SizedBox(
+                      height: 15,
+                    ),
+                    CustomButton1(
+                      text: "My Orders",
+                      bgColor: Colors.green,
+                      size: size,
+                      ontap: () {
+                        CustomNavigators.goTo(context, const MyOrder());
                       },
                     )
                   ],
