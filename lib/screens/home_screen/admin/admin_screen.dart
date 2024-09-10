@@ -83,6 +83,15 @@ class _AdminScreenState extends State<AdminScreen> {
                     ontap: () {
                       value.addProduct(context);
                     },
+                  ),
+                  const Divider(),
+                  CustomButton1(
+                    text: "Home Slider Images",
+                    bgColor: Colors.blue.shade800,
+                    size: MediaQuery.sizeOf(context),
+                    ontap: () {
+                      value.addProduct(context);
+                    },
                   )
                 ],
               ),

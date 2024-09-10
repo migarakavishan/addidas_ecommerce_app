@@ -1,5 +1,7 @@
 import 'package:addidas_ecommerce_app/providers/cart_provider.dart';
+import 'package:addidas_ecommerce_app/screens/home_screen/my_order/my_order.dart';
 import 'package:addidas_ecommerce_app/services/stripe_service.dart';
+import 'package:addidas_ecommerce_app/utils/custom_navigators.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_stripe/flutter_stripe.dart';
 import 'package:logger/logger.dart';
@@ -35,6 +37,7 @@ class PaymentProvider extends ChangeNotifier {
             Provider.of<CartProvider>(context, listen: false)
                 .saveOrders(context);
             Provider.of<CartProvider>(context, listen: false).clearCart();
+            CustomNavigators.goTo(context, const MyOrder());
           }
         }
       } else {
