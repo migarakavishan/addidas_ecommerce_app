@@ -1,6 +1,8 @@
 import 'package:addidas_ecommerce_app/components/custom_button/custom_button1.dart';
 import 'package:addidas_ecommerce_app/components/custom_text_field/custom_textfield1.dart';
 import 'package:addidas_ecommerce_app/providers/admin_provider.dart';
+import 'package:addidas_ecommerce_app/screens/home_screen/admin/slider_update.dart';
+import 'package:addidas_ecommerce_app/utils/custom_navigators.dart';
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 
@@ -90,7 +92,7 @@ class _AdminScreenState extends State<AdminScreen> {
                     bgColor: Colors.blue.shade800,
                     size: MediaQuery.sizeOf(context),
                     ontap: () {
-                      value.addProduct(context);
+                      CustomNavigators.goTo(context, const SliderUpdate());
                     },
                   )
                 ],
