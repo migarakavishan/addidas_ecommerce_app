@@ -56,10 +56,18 @@ class MainScreenProvider extends ChangeNotifier {
             .then((value) {
           _sliderImages.add(value);
           SliderController().updateSliderImage(_sliderImages);
+          _currentPickImage = null;
+          notifyListeners();
+          return value;
         });
       } catch (e) {
         Logger().e(e);
       }
     }
+  }
+
+  Future<List<String>> fetchSliderImages(BuildContext context) async {
+    _sliderImages = (await SliderController().fetchSliderImages(context))!;
+    return _sliderImages;
   }
 }

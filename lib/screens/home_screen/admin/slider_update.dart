@@ -61,27 +61,39 @@ class _SliderUpdateState extends State<SliderUpdate> {
             Expanded(
               child: Padding(
                 padding: const EdgeInsets.all(8.0),
-                child: GridView.builder(
-                  itemCount: 10,
-                  gridDelegate: const SliverGridDelegateWithFixedCrossAxisCount(
-                      crossAxisCount: 2,
-                      mainAxisSpacing: 4,
-                      crossAxisSpacing: 4,
-                      childAspectRatio: 1.5),
-                  itemBuilder: (context, index) {
-                    return Container(
-                      height: 100,
-                      decoration: BoxDecoration(
-                        image: const DecorationImage(
-                            fit: BoxFit.cover,
-                            image: NetworkImage(
-                                "https://trustrace.com/hubfs/adidas%20CMC%20case%20study.png")),
-                        color: Colors.grey,
-                        borderRadius: BorderRadius.circular(20),
-                      ),
-                    );
-                  },
-                ),
+                child: FutureBuilder(
+                    future: value.fetchSliderImages(context),
+                    builder: (context, snapshot) {
+                      if (snapshot.connectionState == ConnectionState.waiting) {
+                        return const Center(child: CircularProgressIndicator());
+                      }
+                      if (snapshot.hasError) {
+                        return const Center(
+                            child: Text("Something went wrong"));
+                      }
+                      List<String> images = snapshot.data!;
+                      return GridView.builder(
+                        itemCount: images.length,
+                        gridDelegate:
+                            const SliverGridDelegateWithFixedCrossAxisCount(
+                                crossAxisCount: 2,
+                                mainAxisSpacing: 4,
+                                crossAxisSpacing: 4,
+                                childAspectRatio: 1.5),
+                        itemBuilder: (context, index) {
+                          return Container(
+                            height: 100,
+                            decoration: BoxDecoration(
+                              image: DecorationImage(
+                                  fit: BoxFit.cover,
+                                  image: NetworkImage(images[index])),
+                              color: Colors.grey,
+                              borderRadius: BorderRadius.circular(20),
+                            ),
+                          );
+                        },
+                      );
+                    }),
               ),
             )
           ],

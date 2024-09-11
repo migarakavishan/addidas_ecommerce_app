@@ -1,8 +1,6 @@
-import 'package:addidas_ecommerce_app/providers/main_screen_provider.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/material.dart';
 import 'package:logger/logger.dart';
-import 'package:provider/provider.dart';
 
 class SliderController {
   CollectionReference admin = FirebaseFirestore.instance.collection("Admin");
@@ -15,9 +13,11 @@ class SliderController {
 
   Future<List<String>?> fetchSliderImages(BuildContext context) async {
     List<String> images = await admin.doc("home_slider").get().then((value) {
-      List<String> images = (value.data() as Map<String, dynamic>)['imageList'];
-      Provider.of<MainScreenProvider>(context, listen: false)
-          .updateSliderImages(images);
+      List<String> images =
+          ((value.data() as Map<String, dynamic>)['imageList'] as List<dynamic>)
+              .map((e) => e.toString())
+              .toList();
+
       return images;
     });
     return images;
