@@ -1,4 +1,5 @@
 import 'package:addidas_ecommerce_app/controllers/auth_controller.dart';
+import 'package:addidas_ecommerce_app/controllers/slider_controller.dart';
 import 'package:flutter/material.dart';
 
 class CustomActionBar extends StatelessWidget {
@@ -18,11 +19,16 @@ class CustomActionBar extends StatelessWidget {
           ),
         ),
         const Spacer(),
-        const CircleAvatar(
-          backgroundColor: Colors.orange,
-          child: Icon(
-            Icons.search,
-            color: Colors.white,
+        GestureDetector(
+          onTap: () {
+            SliderController().getAdmins();
+          },
+          child: const CircleAvatar(
+            backgroundColor: Colors.orange,
+            child: Icon(
+              Icons.search,
+              color: Colors.white,
+            ),
           ),
         ),
         const SizedBox(

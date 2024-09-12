@@ -1,11 +1,13 @@
 import 'package:addidas_ecommerce_app/components/custom_button/custom_button1.dart';
 import 'package:addidas_ecommerce_app/components/custom_text_field/custom_textfield1.dart';
+import 'package:addidas_ecommerce_app/controllers/slider_controller.dart';
 import 'package:addidas_ecommerce_app/providers/auth_provider.dart';
 import 'package:addidas_ecommerce_app/providers/profile_provider.dart';
 import 'package:addidas_ecommerce_app/screens/home_screen/admin/admin_screen.dart';
 import 'package:addidas_ecommerce_app/screens/home_screen/my_order/my_order.dart';
 import 'package:addidas_ecommerce_app/utils/custom_navigators.dart';
 import 'package:flutter/material.dart';
+import 'package:logger/logger.dart';
 import 'package:provider/provider.dart';
 
 class ProfileScreen extends StatefulWidget {
@@ -113,12 +115,29 @@ class _ProfileScreenState extends State<ProfileScreen> {
           );
         },
       ),
-      floatingActionButton: FloatingActionButton(
-        onPressed: () {
-          CustomNavigators.goTo(context, const AdminScreen());
-        },
-        child: const Icon(Icons.admin_panel_settings_sharp),
-      ),
+      floatingActionButton: FutureBuilder(
+          future: SliderController().getAdmins(),
+          builder: (context, snapshot) {
+            String uid =
+                Provider.of<AuthProvider>(context, listen: false).user!.uid;
+
+            if (snapshot.connectionState == ConnectionState.waiting) {}
+            if (snapshot.hasError) {}
+            if (snapshot.hasData) {
+              Logger().e(snapshot.data);
+            }
+            if (snapshot.hasData) {
+              return snapshot.data!.contains(uid)
+                  ? FloatingActionButton(
+                      child: const Icon(Icons.admin_panel_settings),
+                      onPressed: () {
+                        CustomNavigators.goTo(context, const AdminScreen());
+                      },
+                    )
+                  : const SizedBox();
+            }
+            return const SizedBox();
+          }),
     );
   }
 }

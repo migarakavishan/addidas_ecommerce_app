@@ -67,7 +67,7 @@ class MainScreenProvider extends ChangeNotifier {
   }
 
   Future<List<String>> fetchSliderImages(BuildContext context) async {
-    _sliderImages = (await SliderController().fetchSliderImages(context))!;
+    _sliderImages = (await SliderController().fetchSliderImages())!;
     return _sliderImages;
   }
 }

@@ -1,5 +1,4 @@
 import 'package:cloud_firestore/cloud_firestore.dart';
-import 'package:flutter/material.dart';
 import 'package:logger/logger.dart';
 
 class SliderController {
@@ -11,7 +10,7 @@ class SliderController {
     });
   }
 
-  Future<List<String>?> fetchSliderImages(BuildContext context) async {
+  Future<List<String>?> fetchSliderImages() async {
     List<String> images = await admin.doc("home_slider").get().then((value) {
       List<String> images =
           ((value.data() as Map<String, dynamic>)['imageList'] as List<dynamic>)
@@ -21,5 +20,17 @@ class SliderController {
       return images;
     });
     return images;
+  }
+
+  Future<List<String>?> getAdmins() async {
+    List<String> uids = await admin.doc("admins").get().then((value) {
+      List<String> uids =
+          ((value.data() as Map<String, dynamic>)['uidList'] as List<dynamic>)
+              .map((e) => e.toString())
+              .toList();
+      Logger().f(uids);
+      return uids;
+    });
+    return uids;
   }
 }
